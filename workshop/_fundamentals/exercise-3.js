@@ -14,10 +14,19 @@ let foodPairings = {
 
 const getPairing = (key) => {
   // Insert missing solution please
+  if(typeof(key)!=="string"){
+    return "I didn't get that!";
+  }
+  let k = foodPairings[key];
+  if(k===undefined){
+    return "I didn't get that!";
+  }else{
+    return k;
+  }
 };
 
 // 2. Do a console.log to verify your function.
-
+//console.log(getPairing("fish"));
 // 3. Test your function.
 // Look for the corresponding exercise file in the __tests__ folder.
 // Add some test cases in the test. The first one is done for you.

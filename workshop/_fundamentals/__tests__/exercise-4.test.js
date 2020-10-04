@@ -13,4 +13,32 @@ test("Exercise 4", () => {
     )
   ).toStrictEqual(["chris", "liv", "dave"]);
   // add more tests here...
+  expect(
+    getValues(
+      [
+        { name: "chris", age: 23, country: "Canada"},
+        { name: "liv", age: 36, country: "America"},
+        { name: "dave", age: 43 },
+      ],
+      "country"
+    )
+  ).toStrictEqual(["Canada", "America"]);
+
+  expect(
+    getValues(
+      "testing",
+      "country"
+    )
+  ).toStrictEqual(undefined);
+
+  expect(
+    getValues(
+      [
+        { name: "chris", age: 23, country: "Canada"},
+        { name: "liv", age: 36, country: "America"},
+        { name: "dave", age: 43 },
+      ],
+      "region"
+    )
+  ).toStrictEqual([]);
 });

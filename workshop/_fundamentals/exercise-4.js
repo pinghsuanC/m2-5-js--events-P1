@@ -7,10 +7,25 @@
 
 const getValues = (arr, key) => {
   // Insert missing solution please
+  // check
+  if(!Array.isArray(arr)){
+    return undefined;
+  }
+  let l = [];
+  for(let n=0; n<arr.length; n++){
+    if(typeof(arr[n])!=="object"){
+        return undefined;
+    }
+    let k = arr[n][key];
+    if(k!==undefined){
+      l.push(k);
+    }
+  }
+  return l;
 };
 
 // 2. Do a console.log to verify your function.
-
+//console.log(getValues([{name:"JOHN", age:32}, {name:"TOM", age:44, school: "MCGILL"}], 'school'));
 // 3. Test your function.
 // Look for the corresponding exercise file in the __tests__ folder.
 // Add some test cases in the test. The first one is done for you.

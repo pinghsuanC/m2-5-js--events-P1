@@ -1,73 +1,56 @@
-// Exercise 1.1
-// ------------
-console.log('exercise 1.1');
-console.log('exercise-1');
-// get nodes
-let b_node = getByTag("body")[0];   // get by tag will transform body to uppercase
-let h_node = getByTag("head")[0]; 
+console.log("exercise-3.3");
+// get some important nodes
+const h_node = getByTag("head")[0];
+const b_node = getByTag("body")[0];
+const m_node = getById("main");
+// ~~~~~~~~~~~~~~~~~~~~ add content ~~~~~~~~~~~~~~~~~~~~
+// Just... there is no instructions, so I guess I will just add an audio in the webpage hhh
+let b = createNewNode("BUTTON", "PLAY AUDIO", m_node);
+b.classList.add("btn");
 
-// =============== adding the text nodes ===============
-// the node for indsruction
-let corner_node = createNewNode("SPAN", "Be a quicke clicker!", b_node);
-corner_node.id = "corner-node";
-b_node.addEventListener("click", win_function);
+var a = new Audio("chime.mp3");
+b.addEventListener("click", function(){
+    a.load();
+    a.play();
+})
 
 
-// add lose timeout event (without any trigger but with delay)
-let time_id = setTimeout(function(){
-    let c_node = createNewNode("SPAN", "YOU LOST!", b_node);
-    c_node.id="result-note";
-    b_node.removeEventListener("click", win_function);
-    clearTimeout(time_id); // if lost also clear timeout.
-}, 1000);
+// ~~~~~~~~~~~~~~~~~~~~ add styles ~~~~~~~~~~~~~~~~~~~~
+// add mouse-down and mouse-out event for button at the top
 
-// add win function
-function win_function(){
-        let c_node = createNewNode("SPAN", "YOU WIN!", b_node);
-        c_node.id="result-note";
-        b_node.removeEventListener("click", win_function);
-        clearTimeout(time_id); // if clicked clear timeout
-}
 
-// =============== add styles to header ===============
-let content_style = `* {
-    margin: 0;
-    padding: 0;}
-    body {
-    font-family: 'Noto Sans SC', sans-serif;
-    text-align: center;
-    width: 100vw;
-    height: 100vh;
-    background-image:
-    radial-gradient(
-        circle,
-        #05044a, #01c9f7
-    );
+// font
+const font_href = href="https://fonts.googleapis.com/css2?family=Anton&display=swap";
+//object style
+let content_style = `
+    * {
+        margin: 0;
+        border: 0;
+        padding: 0;
+        font-family: 'Anton', sans-serif;
+        font-size: 0.9em;
     }
-    #corner-node {      /*decided to make it at the center*/
-        display: inline-block;
+    body{
+        font-family: 'Anton', sans-serif;
+        font-size: 3em;
+        height: 100vh;
         width: 100vw;
-        color: white;
-        font-size: 4em;
-        margin-left: 20px;
-        margin-top: 30px;
+        display: contain;
     }
-    #result-note {
-        display: inline-block;
-        color: #ff00fe;
-        margin-top: 10vh;
-        font-size: 15em;
+    .main{
+        width: 100%;
+        height: 100%;
+        position: relative;
     }
-    `;
-
-    //https://stackoverflow.com/questions/9519841/why-does-this-css-margin-top-style-not-work
-    // important to know for margin-collapsing D: it's against human instinct...
-// set the font to sans
-let content_font = href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500&display=swap"
+    .btn{
+        margin-top: 100px;
+        margin-left: 100px;
+        width: 200px;
+        height: 100px;
+    }
+    `
+createStyleNode(font_href, undefined, h_node);
 createNewNode("STYLE", content_style, h_node);
-createStyleNode(content_font, undefined, h_node);
-
-
 
 // I wrote these for a previous workshop so I just copy-pasted.
 // and I added a few more
@@ -96,7 +79,6 @@ function getByClass(className){
     // return the node, or an array of node depending on the items
     return document.getElementsByClassName(className);
 }
-
 function createNewNode(type, text, parent){
     // checking input
     if(typeof(type)!=="string"){
@@ -115,13 +97,12 @@ function createNewNode(type, text, parent){
 
     // handle parent
     if(parent!==undefined){
-    parent.appendChild(ele);
+        parent.appendChild(ele);
     }
 
     // return the element if needed.
     return ele; 
 }
-
 function createImgNode(img_link, alt_text, parent){
     let image = createNewNode("img", undefined, parent)
 
@@ -137,7 +118,6 @@ function createImgNode(img_link, alt_text, parent){
     // return image node if needed
     return image;  
 }
-
 function createAnchorNode(href_input, text, parent){
     let a_node = createNewNode("A", text, parent);
 
@@ -149,7 +129,6 @@ function createAnchorNode(href_input, text, parent){
     // return anchor node if needed
     return a_node;
 }
-
 function createStyleNode(href_input, text, parent){
     let style_node = createNewNode("link", text, parent);
 
@@ -164,7 +143,6 @@ function createStyleNode(href_input, text, parent){
     // return node if needed
     return style_node;
 }
-
 function createLinkNode(href_input, text, parent){
     let link_node = createNewNode("link", text, parent);
 
@@ -176,7 +154,19 @@ function createLinkNode(href_input, text, parent){
     // return node if needed
     return link_node;
 }
+function createAudioNode(src_input, text, parent){
+    let audio_node = createNewNode("audio", text, parent);
 
+    // handle src
+    if(href_input!==undefined){
+        audio_node.href = src_input;
+    }
+
+    audio_node.preload = "none";
+
+    // return node if needed
+    return audio_node;
+}
 function createScriptNode(src_input, type, parent){
     let script_node = createNewNode("script", undefined, parent);
 
@@ -192,3 +182,4 @@ function createScriptNode(src_input, type, parent){
     // return node if needed
     return style_node;
 }
+
